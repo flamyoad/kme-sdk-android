@@ -101,6 +101,10 @@ internal class KmeMessageParser(
             KmeMessageEvent.MAKE_ALL_USERS_HAND_PUT.toString() -> {
                 text.jsonToObject<KmeParticipantsModuleMessage<AllUsersHandPutPayload>>()
             }
+            KmeMessageEvent.USER_REMOVED.toString() -> {
+                text.jsonToObject<KmeParticipantsModuleMessage<ParticipantRemovedPayload>>()
+            }
+
             KmeMessageEvent.SDP_ANSWER_TO_PUBLISHER.toString() -> {
                 text.jsonToObject<KmeStreamingModuleMessage<SdpAnswerToPublisherPayload>>()
             }
