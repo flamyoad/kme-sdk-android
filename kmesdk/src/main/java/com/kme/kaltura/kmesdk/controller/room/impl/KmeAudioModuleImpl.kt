@@ -21,6 +21,10 @@ class KmeAudioModuleImpl : KmeController(), IKmeAudioModule {
         audioManager.start()
     }
 
+    override fun changeAudioMode(mode: Int) {
+        audioManager.changeAudioMode(mode)
+    }
+
     /**
      * Setting default audio device
      */

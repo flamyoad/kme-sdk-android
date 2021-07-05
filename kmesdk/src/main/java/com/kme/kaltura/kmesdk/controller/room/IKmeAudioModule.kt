@@ -14,6 +14,11 @@ interface IKmeAudioModule {
     fun start()
 
     /**
+     * Change audio mode
+     */
+    fun changeAudioMode(mode: Int)
+
+    /**
      * Setting default audio device
      *
      * @param device audio device to use as default

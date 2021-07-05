@@ -78,6 +78,10 @@ class KmeAudioManagerImpl(
         registerReceiver(wiredHeadsetReceiver, IntentFilter(Intent.ACTION_HEADSET_PLUG))
     }
 
+    override fun changeAudioMode(mode: Int) {
+        audioManager.mode = mode
+    }
+
     /**
      * Stopping use audio
      */
@@ -91,7 +95,7 @@ class KmeAudioManagerImpl(
         bluetoothManager.stop()
 
         setSpeakerphoneOn(savedIsSpeakerPhoneOn)
-        audioManager.mode = savedAudioMode
+        audioManager.mode = AudioManager.MODE_NORMAL
 
         audioManager.abandonAudioFocus(audioFocusChangeListener)
         audioFocusChangeListener = null
@@ -156,14 +160,7 @@ class KmeAudioManagerImpl(
     }
 
     private fun setAudioDeviceInternal(device: KmeAudioDevice) {
-        when (device) {
-            KmeAudioDevice.SPEAKER_PHONE -> setSpeakerphoneOn(true)
-            KmeAudioDevice.EARPIECE -> setSpeakerphoneOn(false)
-            KmeAudioDevice.WIRED_HEADSET -> setSpeakerphoneOn(false)
-            KmeAudioDevice.BLUETOOTH -> setSpeakerphoneOn(false)
-            else -> {
-            }
-        }
+        setSpeakerphoneOn(device == KmeAudioDevice.SPEAKER_PHONE)
         selectedAudioDevice = device
     }
 

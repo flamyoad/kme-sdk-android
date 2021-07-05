@@ -1,6 +1,7 @@
 package com.kme.kaltura.kmesdk.content.playkit
 
 import android.content.Context
+import android.media.AudioManager
 import android.os.Bundle
 import android.os.Parcelable
 import android.util.AttributeSet
@@ -12,6 +13,7 @@ import com.kaltura.tvplayer.KalturaPlayer
 import com.kaltura.tvplayer.OVPMediaOptions
 import com.kaltura.tvplayer.PlayerInitOptions
 import com.kme.kaltura.kmesdk.R
+import com.kme.kaltura.kmesdk.controller.room.IKmeAudioModule
 import com.kme.kaltura.kmesdk.di.KmeKoinComponent
 import com.kme.kaltura.kmesdk.util.livedata.ConsumableValue
 import com.kme.kaltura.kmesdk.ws.message.module.KmeActiveContentModuleMessage
@@ -36,6 +38,7 @@ class KmeMediaView @JvmOverloads constructor(
     var lifecycleOwner: LifecycleOwner? = null
     var kalturaErrorListener: OnLoadKalturaErrorListener? = null
 
+    private val audioModule: IKmeAudioModule by inject()
     private val defaultPlayerEventHandler: KmeDefaultPlayerEventHandler by inject()
 
     private lateinit var config: Config
@@ -265,6 +268,7 @@ class KmeMediaView @JvmOverloads constructor(
     private fun handlePlayerState(state: KmePlayerState) {
         when (state) {
             KmePlayerState.PLAY, KmePlayerState.PLAYING -> {
+                audioModule.changeAudioMode(AudioManager.MODE_NORMAL)
                 if (isEnded()) {
                     replay()
                 } else {
@@ -273,7 +277,10 @@ class KmeMediaView @JvmOverloads constructor(
             }
             KmePlayerState.PAUSE, KmePlayerState.STOP,
             KmePlayerState.PAUSED, KmePlayerState.ENDED -> {
+                audioModule.changeAudioMode(AudioManager.MODE_IN_COMMUNICATION)
                 pause()
+            }
+            else -> {
             }
         }
     }
