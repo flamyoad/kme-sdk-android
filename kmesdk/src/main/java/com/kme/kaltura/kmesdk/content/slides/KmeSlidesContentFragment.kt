@@ -15,7 +15,6 @@ import com.kme.kaltura.kmesdk.util.livedata.ConsumableValue
 import com.kme.kaltura.kmesdk.ws.message.module.KmeActiveContentModuleMessage.SetActiveContentPayload
 import com.kme.kaltura.kmesdk.ws.message.module.KmeWhiteboardModuleMessage.WhiteboardPayload
 import com.kme.kaltura.kmesdk.ws.message.type.KmeContentType
-import com.kme.kaltura.kmesdk.ws.message.type.KmeUserType
 import com.kme.kaltura.kmesdk.ws.message.type.KmeWhiteboardBackgroundType
 import org.koin.core.inject
 
@@ -116,7 +115,9 @@ class KmeSlidesContentFragment : KmeContentView() {
                     true
                 }
                 currentSlide = payload.metadata.currentSlide ?: 0
-                showPreview = slidesContentViewModel.userType() != KmeUserType.GUEST
+                // TODO moderator only
+//                showPreview = slidesContentViewModel.userType() != KmeUserType.GUEST
+                showPreview = false
             }
             binding.slidesView.init(config)
             if (whiteboardViewModel.savedDrawingsList.isNotEmpty()) {
