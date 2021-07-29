@@ -22,6 +22,15 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_room_menu" />
 
+    <Button
+        android:id="@+id/btnHideWebCams"
+        android:layout_width="wrap_content"
+        android:layout_height="54dp"
+        android:text="Hide List"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btnRaiseHand"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/btnRaiseHand"
         android:layout_width="@dimen/room_controls_height"

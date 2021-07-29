@@ -12,6 +12,7 @@ import android.view.WindowManager
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -199,6 +200,10 @@ class RoomActivity : KmeActivity(), PreviewListener {
         renderersFragment = RoomRenderersFragment.newInstance()
         renderersFragment?.let {
             replaceFragment(it, renderersFrame.id)
+        }
+
+        btnHideWebCams.setOnClickListener {
+            renderersFrame.isVisible = !renderersFrame.isVisible
         }
     }
 
