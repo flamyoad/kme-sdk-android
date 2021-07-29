@@ -29,6 +29,7 @@
                 android:layout_marginEnd="2dp"
                 android:layout_marginBottom="2dp"
                 android:visibility="gone"
+                tools:visibility="visible"
                 app:layout_constraintBottom_toTopOf="@id/renderersFrame"
                 app:layout_constraintTop_toTopOf="parent" />
 
