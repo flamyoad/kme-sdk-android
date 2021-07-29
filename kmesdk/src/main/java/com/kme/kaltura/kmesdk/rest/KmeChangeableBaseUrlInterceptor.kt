@@ -30,7 +30,8 @@ class KmeChangeableBaseUrlInterceptor(
         val lastUsedUrl = prefs.getString(KmePrefsKeys.BASE_SERVER_URL)
         baseUrl = if (lastUsedUrl.isNullOrEmpty()) {
             if (BuildConfig.DEBUG) {
-                String.format(apiUrlPattern, stagingHost)
+//                String.format(apiUrlPattern, stagingHost)
+                String.format(apiUrlPattern, productionHost)
             } else {
                 String.format(apiUrlPattern, productionHost)
             }

@@ -85,11 +85,13 @@ val restModule = module {
     }
 
     single {
-        val baseUrl = if (BuildConfig.DEBUG) {
-            "https://${androidContext().getString(R.string.staging_api_url)}/backend/"
-        } else {
-            "https://${androidContext().getString(R.string.production_api_url)}/backend/"
-        }
+//        val baseUrl = if (BuildConfig.DEBUG) {
+//            "https://${androidContext().getString(R.string.staging_api_url)}/backend/"
+//        } else {
+//            "https://${androidContext().getString(R.string.production_api_url)}/backend/"
+//        }
+        val baseUrl = "https://${androidContext().getString(R.string.production_api_url)}/backend/"
+
         Retrofit.Builder()
             .baseUrl(baseUrl)
             .client(get())
@@ -100,11 +102,14 @@ val restModule = module {
     single(
         named("Downloader")
     ) {
-        val baseUrl = if (BuildConfig.DEBUG) {
-            "https://${androidContext().getString(R.string.staging_api_url)}/backend/"
-        } else {
-            "https://${androidContext().getString(R.string.production_api_url)}/backend/"
-        }
+//        val baseUrl = if (BuildConfig.DEBUG) {
+//            "https://${androidContext().getString(R.string.staging_api_url)}/backend/"
+//        } else {
+//            "https://${androidContext().getString(R.string.production_api_url)}/backend/"
+//        }
+
+        val baseUrl = "https://${androidContext().getString(R.string.production_api_url)}/backend/"
+
         Retrofit.Builder()
             .baseUrl(baseUrl)
             .client(get(named("Downloader")))

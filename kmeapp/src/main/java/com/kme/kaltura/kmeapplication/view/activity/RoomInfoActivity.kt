@@ -18,6 +18,7 @@ import com.kme.kaltura.kmesdk.rest.response.room.KmeBaseRoom
 import kotlinx.android.synthetic.main.activity_room_info.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+// this activity is not used anywhere (flamy)
 class RoomInfoActivity : KmeActivity(), SwipeRefreshLayout.OnRefreshListener {
 
     private val viewModel: RoomInfoViewModel by viewModel()
