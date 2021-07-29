@@ -32,7 +32,7 @@ fun createRoomNotification(
         .setSound(null)
         .setContentTitle(title)
         .setContentText(content)
-        .setSmallIcon(R.drawable.ic_notification)
+//        .setSmallIcon(R.drawable.ic_notification)
         .setContentIntent(pendingIntent)
         .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
         .setOngoing(true)
