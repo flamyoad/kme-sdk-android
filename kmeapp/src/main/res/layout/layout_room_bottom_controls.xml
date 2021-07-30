@@ -7,7 +7,7 @@
     android:layout_height="@dimen/room_controls_height"
     android:layout_gravity="bottom"
     android:animateLayoutChanges="true"
-    android:background="@color/colorPrimary"
+    android:background="@android:color/holo_red_dark"
     android:paddingStart="12dp"
     android:paddingEnd="12dp">
 
@@ -27,6 +27,8 @@
         android:layout_width="wrap_content"
         android:layout_height="54dp"
         android:text="Hide List"
+        android:elevation="0dp"
+        android:backgroundTint="@android:color/holo_red_dark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/btnRaiseHand"
         app:layout_constraintTop_toTopOf="parent" />

@@ -29,7 +29,7 @@ class RoomRenderersFragment : KmeFragment() {
     private val roomSettingsViewModel: RoomSettingsViewModel by sharedViewModel()
     private val peerConnectionViewModel: PeerConnectionViewModel by sharedViewModel()
 
-    private lateinit var adapter: RenderersAdapter
+    private lateinit var adapter: RenderersAdapter // lateinit property adapter has not been initialized
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,8 +42,8 @@ class RoomRenderersFragment : KmeFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupViewModel()
         setupUI()
+//        setupViewModel()
     }
 
     private fun setupViewModel() {
@@ -106,6 +106,8 @@ class RoomRenderersFragment : KmeFragment() {
                 )
                 rvRenderers.adapter = adapter
                 rvRenderers.addItemDecoration(GridSpacingItemDecoration(spacing = DEFAULT_SPACING))
+
+                setupViewModel()
             }
         })
     }
