@@ -135,7 +135,7 @@ class RoomActivity : KmeActivity(), PreviewListener {
             roomInfoViewModel.fetchRoomInfo(roomAlias)
         }
         // todo: verify
-//        roomInfoViewModel.fetchRoomInfo(roomAlias)
+        roomInfoViewModel.fetchRoomInfo(roomAlias)
         roomInfoViewModel.isLoadingLiveData.observe(this, isLoadingObserver)
         roomInfoViewModel.roomInfoLiveData.observe(this, roomInfoObserver)
         roomInfoViewModel.roomInfoErrorLiveData.observe(this, roomErrorObserver)
@@ -867,12 +867,13 @@ class RoomActivity : KmeActivity(), PreviewListener {
         closePreviewSettings()
     }
 
-//    override fun onDestroy() {
-//        super.onDestroy()
-//        alertDialog.hideIfExist()
-//        alertDialog = null
-//        closePreviewSettings()
-//    }
+    // commented out
+    override fun onDestroy() {
+        super.onDestroy()
+        alertDialog.hideIfExist()
+        alertDialog = null
+        closePreviewSettings()
+    }
 
     private fun showPreviewSettings() {
         if (hasPermissions(PERMISSIONS)) {

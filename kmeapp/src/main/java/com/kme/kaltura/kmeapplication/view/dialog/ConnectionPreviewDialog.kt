@@ -43,7 +43,8 @@ class ConnectionPreviewDialog : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         amplitudeMeter = SoundAmplitudeMeter(view.context)
-        startMeasure()
+        // zhenhao: Crashes on screen rotation
+//        startMeasure()
 
         peerConnectionViewModel.createPreview(binding.preview)
 
