@@ -85,11 +85,11 @@ class RoomActivity : KmeActivity(), PreviewListener {
 
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
-        setupRoomViewModel()
+        setupRoomViewModel(savedInstanceState)
         setupUI()
     }
 
-    private fun setupRoomViewModel() {
+    private fun setupRoomViewModel(savedInstanceState: Bundle?) {
         companyId = intent?.extras?.get(COMPANY_ID_EXTRA) as Long?
         roomId = intent?.extras?.get(ROOM_ID_EXTRA) as Long?
 
@@ -126,12 +126,16 @@ class RoomActivity : KmeActivity(), PreviewListener {
         ifNonNull(companyId, roomId) { companyId, roomId ->
             viewModel.connect(companyId, roomId, roomAlias)
         } ?: run {
-            setupRoomInfoViewModel()
+            setupRoomInfoViewModel(savedInstanceState)
         }
     }
 
-    private fun setupRoomInfoViewModel() {
-        roomInfoViewModel.fetchRoomInfo(roomAlias)
+    private fun setupRoomInfoViewModel(savedInstanceState: Bundle?) {
+        if (savedInstanceState == null) {
+            roomInfoViewModel.fetchRoomInfo(roomAlias)
+        }
+        // todo: verify
+//        roomInfoViewModel.fetchRoomInfo(roomAlias)
         roomInfoViewModel.isLoadingLiveData.observe(this, isLoadingObserver)
         roomInfoViewModel.roomInfoLiveData.observe(this, roomInfoObserver)
         roomInfoViewModel.roomInfoErrorLiveData.observe(this, roomErrorObserver)
@@ -854,12 +858,21 @@ class RoomActivity : KmeActivity(), PreviewListener {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    // Moving this from onDestroy to onPause fixes the crash.
+    // but it causes other issues:
+    override fun onPause() {
+        super.onPause()
         alertDialog.hideIfExist()
         alertDialog = null
         closePreviewSettings()
     }
+
+//    override fun onDestroy() {
+//        super.onDestroy()
+//        alertDialog.hideIfExist()
+//        alertDialog = null
+//        closePreviewSettings()
+//    }
 
     private fun showPreviewSettings() {
         if (hasPermissions(PERMISSIONS)) {

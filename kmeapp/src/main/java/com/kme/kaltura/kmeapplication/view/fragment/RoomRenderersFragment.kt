@@ -43,7 +43,7 @@ class RoomRenderersFragment : KmeFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupUI()
-//        setupViewModel()
+//        setupViewModel() moved this method to setupUi() onGlobalLayoutListener
     }
 
     private fun setupViewModel() {

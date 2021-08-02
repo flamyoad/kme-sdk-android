@@ -102,7 +102,7 @@ class RoomViewModel(
         kmeSdk.roomController.connect(roomId, roomAlias, companyId, true, this)
         kmeSdk.roomController.subscribeForContent(object : IKmeContentModule.KmeContentListener {
             override fun onContentAvailable(view: KmeContentView) {
-                sharedContent.value = view
+                sharedContent.value = view // Slide, video, pdf etc
             }
 
             override fun onContentNotAvailable() {
