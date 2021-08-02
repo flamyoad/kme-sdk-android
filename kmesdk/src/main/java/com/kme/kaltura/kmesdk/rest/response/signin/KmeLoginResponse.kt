@@ -12,5 +12,4 @@ data class KmeLoginResponse(
         @SerializedName("user_id") var userId: Long?,
         @SerializedName("access-token") var accessToken: String?
     ) : KmeResponseData()
-
 }

@@ -95,6 +95,9 @@ class SignInActivity : AppCompatActivity() {
 
     private fun setupUI() {
         btnLogin.setOnClickListener {
+//            zhenhao: login with token - experiment
+//            viewModel.loginWithToken("")
+
             if (isLoginViewType) {
                 viewModel.login(
                     etEmail.text.toString(),

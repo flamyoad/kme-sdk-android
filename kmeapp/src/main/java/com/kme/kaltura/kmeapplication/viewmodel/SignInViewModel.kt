@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import com.kme.kaltura.kmeapplication.R
 import com.kme.kaltura.kmesdk.KME
 import com.kme.kaltura.kmesdk.rest.response.signin.KmeGuestLoginResponse.KmeGuestLoginData
+import com.kme.kaltura.kmesdk.rest.response.signin.KmeLoginResponse
 import com.kme.kaltura.kmesdk.rest.response.signin.KmeLoginResponse.KmeLoginData
 
 class SignInViewModel(
@@ -49,6 +50,23 @@ class SignInViewModel(
         kmeSdk.signInController.guest(name, email, roomAlias, success = {
             isLoading.value = false
             guestLoginResponse.value = it.data
+        }, error = {
+            isLoading.value = false
+            loginError.value = it.message
+        })
+    }
+
+    // zhenhao: custom login with token
+    // success callback in login(token) does not return KmeLoginData.
+    fun loginWithToken(token: String) {
+        kmeSdk.signInController.login(token, success = {
+            isLoading.value = false
+            loginResponse.value = KmeLoginData(
+                    userId = null,
+                    accessToken = token
+                )
+            println(loginResponse.value)
+//            loginResponse.value = it.data
         }, error = {
             isLoading.value = false
             loginError.value = it.message
