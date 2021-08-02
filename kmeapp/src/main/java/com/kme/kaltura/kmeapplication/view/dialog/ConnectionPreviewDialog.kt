@@ -43,7 +43,7 @@ class ConnectionPreviewDialog : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         amplitudeMeter = SoundAmplitudeMeter(view.context)
-        // zhenhao: Crashes on screen rotation
+        // zhenhao: Crashes on screen rotation. Audio still works in livechat though
 //        startMeasure()
 
         peerConnectionViewModel.createPreview(binding.preview)

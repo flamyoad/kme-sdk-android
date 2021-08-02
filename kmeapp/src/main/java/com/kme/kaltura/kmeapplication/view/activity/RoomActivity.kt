@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.view.View
 import android.view.View.*
 import android.view.ViewGroup
@@ -87,6 +88,16 @@ class RoomActivity : KmeActivity(), PreviewListener {
 
         setupRoomViewModel(savedInstanceState)
         setupUI()
+
+        savedInstanceState?.getBoolean("preview_settings")?.let {
+            previewSettingsSet = it
+        }
+    }
+
+    // zhenhao: Prevent dialog from reappearing on screen rotation
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBoolean("preview_settings", previewSettingsSet)
     }
 
     private fun setupRoomViewModel(savedInstanceState: Bundle?) {
@@ -480,7 +491,10 @@ class RoomActivity : KmeActivity(), PreviewListener {
         participantsViewModel.setRoomState(it)
         peerConnectionViewModel.setRoomState(it)
 
-        showPreviewSettings()
+        // zhenhao: Prevent dialog from reappearing on screen rotation
+        if (!previewSettingsSet) {
+            showPreviewSettings()
+        }
     }
 
     private val isConnectedObserver = Observer<Boolean> {
@@ -858,8 +872,9 @@ class RoomActivity : KmeActivity(), PreviewListener {
         }
     }
 
-    // Moving this from onDestroy to onPause fixes the crash.
-    // but it causes other issues:
+    // zhenhao: Moving this from onDestroy to onPause fixes the crash.
+    // How to reproduce: 1. Join a room. Wait for ConnectionPreviewDialog to show.
+    //                   2. Dont click the confirm btn. Just rotate the screen.
     override fun onPause() {
         super.onPause()
         alertDialog.hideIfExist()
@@ -867,13 +882,13 @@ class RoomActivity : KmeActivity(), PreviewListener {
         closePreviewSettings()
     }
 
-    // commented out
-    override fun onDestroy() {
-        super.onDestroy()
-        alertDialog.hideIfExist()
-        alertDialog = null
-        closePreviewSettings()
-    }
+    // zhenhao: Refer to onPause() comment
+//    override fun onDestroy() {
+//        super.onDestroy()
+//        alertDialog.hideIfExist()
+//        alertDialog = null
+//        closePreviewSettings()
+//    }
 
     private fun showPreviewSettings() {
         if (hasPermissions(PERMISSIONS)) {
